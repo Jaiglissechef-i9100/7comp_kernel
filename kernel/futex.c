@@ -728,6 +728,7 @@ lookup_pi_state(u32 uval, struct futex_hash_bucket *hb,
 			 * Handle the owner died case:
 			 */
 			if (uval & FUTEX_OWNER_DIED) {
+<<<<<<< HEAD
 				/*
 				 * exit_pi_state_list sets owner to NULL and
 				 * wakes the topmost waiter. The task which
@@ -779,7 +780,6 @@ lookup_pi_state(u32 uval, struct futex_hash_bucket *hb,
 			if (pid != task_pid_vnr(pi_state->owner))
 				return -EINVAL;
 
-		out_state:
 			/*
 			 * Protect against a corrupted uval. If uval
 			 * is 0x80000000 then pid is 0 and the waiter
@@ -791,8 +791,10 @@ lookup_pi_state(u32 uval, struct futex_hash_bucket *hb,
 			if (task && pi_state->owner == task)
 				return -EDEADLK;
 
+		out_state:
 			atomic_inc(&pi_state->refcount);
 			*ps = pi_state;
+
 			return 0;
 		}
 	}
